@@ -1,5 +1,5 @@
 {
-  "name": "projeto-final",
+  "name": "hdpa",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,5 +13,7 @@
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "pg": "^8.21.0"
-  }
+  },
+  "type": "commonjs",
+  "devDependencies": {}
 }

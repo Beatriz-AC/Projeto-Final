@@ -1,3 +1,4 @@
+/* style.css */
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +12,7 @@ body {
     background-color: #f8f9fa;
 }
 
+/* ==================== HEADER ==================== */
 .navbar {
     background: linear-gradient(135deg, #3a7de9, #3a7de9);
     padding: 1rem 5%;
@@ -53,7 +55,7 @@ body {
 
 .btn-register {
     background: #35048b;
-    color: white ;
+    color: white !important;
     padding: 12px 28px;
     border-radius: 9999px;
     font-weight: 600;
@@ -65,9 +67,9 @@ body {
     transform: translateY(-2px);
 }
 
-
+/* ==================== HERO SECTION (Nova tonalidade) ==================== */
 .subtitulo {
-    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #527bae 100%);
     color: white;
     text-align: center;
     padding: 6rem 5% 4.5rem;
@@ -107,6 +109,7 @@ body {
     font-weight: 400;
 }
 
+/* ==================== MAIN CONTENT ==================== */
 .main {
     max-width: 1200px;
     margin: 0 auto;
@@ -172,7 +175,7 @@ body {
     box-shadow: 0 6px 20px rgba(59, 130, 246, 0.18);
 }
 
-
+/* Sidebar */
 .informacoes {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
@@ -183,6 +186,7 @@ body {
     top: 100px;
 }
 
+/* Contatos e Footer */
 .contatos {
     background: #f1f5f9;
     margin: 3rem 5%;
@@ -201,6 +205,7 @@ footer {
     margin-top: 3rem;
 }
 
+/*Botões Responsivels*/
 
 @media (max-width: 1024px) {
     .main { grid-template-columns: 1fr; }

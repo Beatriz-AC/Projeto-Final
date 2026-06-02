@@ -1,5 +1,5 @@
 // Importar as funções do Model
-const BuscaModel = require('../Models/buscaModel');
+const BuscaModel = require('../Models/buscaModels');
 
 // ============================================================
 // FUNÇÃO: listarTodos (ASSÍNCRONA)

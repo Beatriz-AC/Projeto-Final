@@ -17,8 +17,8 @@ pool.connect((erro, client, release) => {
     console.error('💡 Verifique suas credenciais no arquivo .env');
   } else {
     console.log('✅ Conectado ao PostgreSQL com sucesso!');
-    console.log(📊 Banco: ${process.env.DB_NAME});
-    console.log(🏠 Host: ${process.env.DB_HOST}:${process.env.DB_PORT});
+    console.log(`📊 Banco: ${process.env.DB_NAME}`);
+    console.log(`🏠 Host: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
     release();
   }
 });

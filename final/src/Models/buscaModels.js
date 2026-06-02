@@ -48,7 +48,11 @@ function buscarPorId(id) {
 // ============================================================
 function buscarPorVestibular(vestibular) {
   return new Promise((resolve, reject) => {
-    const sql = ` SELECT * FROM BUSCA WHERE vestibular LIKE ? ORDER BY ano DESC `;
+    const sql = `
+      SELECT * FROM BUSCA 
+      WHERE vestibular LIKE ? 
+      ORDER BY ano DESC
+    `;
     
     db.all(sql, [`%${vestibular}%`], (erro, linhas) => {
       if (erro) {
@@ -89,7 +93,10 @@ function buscarPorAno(ano) {
 function buscarPorPalavraChave(palavra) {
   return new Promise((resolve, reject) => {
     const sql = `
-      SELECT * FROM BUSCA WHERE palavra_chave LIKE ? ORDER BY ano DESC `;
+      SELECT * FROM BUSCA 
+      WHERE palavra_chave LIKE ? 
+      ORDER BY ano DESC
+    `;
     
     db.all(sql, [`%${palavra}%`], (erro, linhas) => {
       if (erro) {
