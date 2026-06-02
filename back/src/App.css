@@ -1,0 +1,55 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 40px 20px;
+  background: #f5f7fb;
+  color: #1d1d27;
+  text-align: center;
+}
+
+.hero {
+  max-width: 520px;
+  width: 100%;
+  padding: 32px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 14px 50px rgba(24, 29, 68, 0.08);
+}
+
+button {
+  margin-top: 24px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  background: #8257e5;
+  color: #ffffff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #6b47c9;
+  transform: translateY(-2px);
+}
+
+.info {
+  max-width: 520px;
+  width: 100%;
+  padding: 24px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(24, 29, 68, 0.05);
+}
+
+code {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: #f3f4f8;
+  color: #0f172a;
+}
