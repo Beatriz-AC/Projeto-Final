@@ -1,28 +1,22 @@
 {
-  "name": "back",
+  "name": "hdpa",
   "version": "1.0.0",
-  "private": true,
-  "description": "Backend API com frontend React/Vite",
-  "main": "app.js",
+  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "jsonwebtoken": "^9.0.3",
-    "pg": "^8.21.0",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "pg": "^8.21.0"
   },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.1"
-  }
+  "type": "commonjs"
 }

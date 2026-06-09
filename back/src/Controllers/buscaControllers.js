@@ -85,6 +85,25 @@ async function buscarPorAno(req, res) {
   }
 }
 
+
+// ============================================================
+// FUNÇÃO: buscarPorTopico (ASSÍNCRONA)
+// ROTA: GET /busca/topicos/:topico
+// ============================================================
+async function buscarPorTopico(req, res) {
+  try {
+    const { topico } = req.params;
+    const questoes = await BuscaModel.buscarPorTopico(topico);
+    
+    res.status(200).json(questoes);
+  } catch (erro) {
+    res.status(500).json({
+      mensagem: 'Erro ao buscar questões por tópico',
+      erro: erro.message
+    });
+  }
+}
+
 // ============================================================
 // FUNÇÃO: buscarPorPalavraChave (ASSÍNCRONA)
 // ROTA: GET /busca/palavra-chave/:palavra
@@ -103,6 +122,50 @@ async function buscarPorPalavraChave(req, res) {
   }
 }
 
+
+// ============================================================
+// FUNÇÃO: listarTopicos (ASSÍNCRONA)
+// ROTA: GET /busca/topicos-lista
+// ============================================================
+async function listarTopicos(req, res) {
+  try {
+    const topicos = await BuscaModel.listarTopicos();
+    res.status(200).json(topicos);
+  } catch (erro) {
+    res.status(500).json({
+      mensagem: 'Erro ao listar tópicos',
+      erro: erro.message
+    });
+  }
+}
+
+// ============================================================
+// FUNÇÃO: buscarResposta (ASSÍNCRONA)
+// ROTA: GET /busca/:id/resposta
+// ============================================================
+async function buscarResposta(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+      return res.status(400).json({ mensagem: 'ID de questão inválido' });
+    }
+
+    const resposta = await BuscaModel.buscarResposta(id);
+
+    if (resposta) {
+      res.status(200).json(resposta);
+    } else {
+      res.status(404).json({ mensagem: `Resposta para questão ${id} não encontrada` });
+    }
+  } catch (erro) {
+    res.status(500).json({
+      mensagem: 'Erro ao buscar resposta',
+      erro: erro.message
+    });
+  }
+}
+
 // ============================================================
 // EXPORTAR TODAS AS FUNÇÕES
 // ============================================================
@@ -111,5 +174,8 @@ module.exports = {
   buscarPorId,
   buscarPorVestibular,
   buscarPorAno,
-  buscarPorPalavraChave
+  buscarPorTopico,
+  buscarPorPalavraChave,
+  listarTopicos,
+  buscarResposta
 };

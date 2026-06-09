@@ -1,4 +1,7 @@
+const express = require('express');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
+const path = require('path');
 
 const login = async (req, res) => {
     const { email, password } = req.body;
