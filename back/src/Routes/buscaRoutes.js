@@ -3,6 +3,9 @@ const router = express.Router();
 
 const BuscaController =
   require('../Controllers/buscaControllers');
+const authMiddleware = require('../Middleware/authMiddleware');
+
+router.use(authMiddleware);
 
 router.get('/', BuscaController.listarTodos);
 

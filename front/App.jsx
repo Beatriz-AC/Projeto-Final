@@ -28,6 +28,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() =>
     Boolean(localStorage.getItem('jwtToken')),
   )
+  const protectedPaths = ['/plano', '/questoes']
 
   useEffect(() => {
     const handlePopState = () => setPath(getCurrentPath())
@@ -35,7 +36,53 @@ function App() {
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
 
+  useEffect(() => {
+    async function validarLogin() {
+      const token = localStorage.getItem('jwtToken')
+
+      if (!token) {
+        setIsAuthenticated(false)
+        return
+      }
+
+      try {
+        const response = await fetch('/auth/validate', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+
+        if (!response.ok) {
+          localStorage.removeItem('jwtToken')
+          setIsAuthenticated(false)
+
+          if (protectedPaths.includes(getCurrentPath().toLowerCase())) {
+            window.history.replaceState({}, '', '/login')
+            setPath('/login')
+          }
+          return
+        }
+
+        setIsAuthenticated(true)
+      } catch (error) {
+        localStorage.removeItem('jwtToken')
+        setIsAuthenticated(false)
+      }
+    }
+
+    validarLogin()
+  }, [])
+
   function navigate(nextPath) {
+    const normalizedPath = nextPath.toLowerCase()
+    const token = localStorage.getItem('jwtToken')
+
+    if ((!isAuthenticated || !token) && protectedPaths.includes(normalizedPath)) {
+      window.history.pushState({}, '', '/login')
+      setPath('/login')
+      return
+    }
+
     window.history.pushState({}, '', nextPath)
     setPath(getCurrentPath())
   }
@@ -46,8 +93,12 @@ function App() {
     navigate('/login')
   }
 
-  const Page = routes[path] || Home
-  const isLoginPage = path.toLowerCase() === '/login'
+  const effectivePath =
+    !isAuthenticated && protectedPaths.includes(path.toLowerCase())
+      ? '/login'
+      : path
+  const Page = routes[effectivePath] || Home
+  const isLoginPage = effectivePath.toLowerCase() === '/login'
 
   return (
     <div className="app-shell">
