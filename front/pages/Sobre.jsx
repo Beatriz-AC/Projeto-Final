@@ -26,7 +26,7 @@ function Sobre() {
         </section>
 
         <section className="people-section">
-          <h1>Professores</h1>
+          <h1>Professora</h1>
           <div className="people-grid">
             {professores.map((pessoa, index) => (
               <Card key={`prof-${index}`} nome={pessoa.nome} foto={pessoa.foto} />
