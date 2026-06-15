@@ -11,8 +11,6 @@ function Sobre() {
 
   const professores = [
     { nome: 'Professora SESI', foto: './img/Flavienne Sesi.jpeg' },
-    { nome: 'Professora SENAI 1', foto: '/Assets/prof2.jpg' },
-    { nome: 'Professora SENAI 2', foto: '/Assets/prof3.jpg' },
   ]
 
   return (
