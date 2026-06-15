@@ -83,6 +83,36 @@ async function buscarPorDificuldade(dificuldade) {
 }
 
 // ========================================
+// LISTAR TÓPICOS
+// ========================================
+async function listarTopicos() {
+  const result = await pool.query(`
+    SELECT
+      COALESCE(NULLIF(topico, ''), NULLIF(nome_t, ''), palavra_chave) AS nome_t,
+      COUNT(*) AS total
+    FROM BUSCA
+    GROUP BY COALESCE(NULLIF(topico, ''), NULLIF(nome_t, ''), palavra_chave)
+    ORDER BY COUNT(*) DESC, nome_t
+  `);
+
+  return result.rows;
+}
+
+// ========================================
+// BUSCAR POR TÓPICO
+// ========================================
+async function buscarPorTopico(topico) {
+  const result = await pool.query(`
+    SELECT *
+    FROM BUSCA
+    WHERE COALESCE(NULLIF(topico, ''), NULLIF(nome_t, ''), palavra_chave) ILIKE $1
+    ORDER BY ano DESC, id_questao
+  `, [`%${topico}%`]);
+
+  return result.rows;
+}
+
+// ========================================
 // BUSCAR RESPOSTA DA QUESTÃO
 // ========================================
 async function buscarResposta(idQuestao) {
@@ -102,5 +132,7 @@ module.exports = {
   buscarPorVestibular,
   buscarPorAno,
   buscarPorDificuldade,
-  buscarResposta
+  listarTopicos,
+  buscarPorTopico,
+  buscarResposta,
 };

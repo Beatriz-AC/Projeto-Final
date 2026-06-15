@@ -20,9 +20,33 @@ function getTopico(questao) {
   return questao?.topico || questao?.palavra_chave || questao?.nome_t || ''
 }
 
+function normalizeTopico(text) {
+  return String(text || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+}
+
 function ordenarQuestoes(lista) {
   return [...lista].sort((a, b) => Number(getId(a)) - Number(getId(b)))
 }
+
+const TOPICOS_FIXOS = [
+    'Eletroquímica',
+    'Química Orgânica',
+    'Ligação Química',
+    'Estequiometria',
+    'Termoquímica',
+    'Reações orgânicas',
+    'Equilíbrio químico',
+    'Química ambiental',
+    'Cinética química',
+    'Físico Químico',
+    'Compostos orgânicos',
+    'Química Geral',
+    'Química Inorgânica',
+]
 
 function montarOpcoes(lista, campo) {
   const nomes = lista
@@ -116,7 +140,7 @@ function Questoes() {
   }
 
   function atualizarFiltros(lista) {
-    setTopicos(montarOpcoes(lista, getTopico))
+    setTopicos(TOPICOS_FIXOS)
     setDificuldades(montarOpcoes(lista, getDificuldade))
   }
 
@@ -155,7 +179,10 @@ function Questoes() {
   }
 
   function buscarPorTopico(topico) {
-    const filtradas = questoes.filter((questao) => getTopico(questao) === topico)
+    const normalizedTopico = normalizeTopico(topico)
+    const filtradas = questoes.filter(
+      (questao) => normalizeTopico(getTopico(questao)) === normalizedTopico,
+    )
 
     if (filtradas.length === 0) {
       alert('Nenhuma questão encontrada para este tópico.')
@@ -210,6 +237,10 @@ function Questoes() {
     }
 
     if (selectedTopico) {
+      if (!TOPICOS_FIXOS.includes(selectedTopico)) {
+        alert('Tópico inválido. Selecione um tópico válido.')
+        return
+      }
       buscarPorTopico(selectedTopico)
       return
     }

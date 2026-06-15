@@ -15,9 +15,13 @@ router.get('/palavra/:palavra',BuscaController.buscarPorPalavra);
 
 router.get('/vestibular/:vestibular',BuscaController.buscarPorVestibular);
 
-router.get('/ano/:ano',BuscaController.buscarPorAno);
+router.get('/ano/:ano', BuscaController.buscarPorAno);
 
-router.get('/dificuldade/:dificuldade',BuscaController.buscarPorDificuldade);
+router.get('/dificuldade/:dificuldade', BuscaController.buscarPorDificuldade);
+
+router.get('/topicos-lista', BuscaController.listarTopicos);
+
+router.get('/topicos/:topico', BuscaController.buscarPorTopico);
 
 router.get('/resposta/:id', BuscaController.buscarResposta);
 

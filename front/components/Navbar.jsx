@@ -41,17 +41,6 @@ function Navbar({ isAuthenticated, onLogout, onNavigate }) {
               </a>
             </li>
           )}
-          {!isAuthenticated && (
-            <li>
-              <a
-                className="btn-register"
-                href="/cadastro"
-                onClick={(event) => handleNavigate(event, '/cadastro')}
-              >
-                Cadastrar
-              </a>
-            </li>
-          )}
           {isAuthenticated && (
             <li>
               <button className="btn-logout" type="button" onClick={onLogout}>

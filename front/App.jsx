@@ -6,14 +6,13 @@ import Login from './pages/Login.jsx'
 import Plano from './pages/Plano.jsx'
 import Questoes from './pages/Questoes.jsx'
 import Sobre from './pages/Sobre.jsx'
-import Cadastro from './pages/Cadastro.jsx'
+
 
 const routes = {
   '/': Home,
   '/home': Home,
   '/Home': Home,
   '/login': Login,
-  '/cadastro': Cadastro,
   '/questoes': Questoes,
   '/plano': Plano,
   '/sobre': Sobre,
@@ -28,7 +27,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(() =>
     Boolean(localStorage.getItem('jwtToken')),
   )
-  const protectedPaths = ['/plano', '/questoes']
+  const protectedPaths = ['/', '/home', '/plano', '/questoes']
 
   useEffect(() => {
     const handlePopState = () => setPath(getCurrentPath())
