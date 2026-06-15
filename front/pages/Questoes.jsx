@@ -29,7 +29,9 @@ function Questoes() {
   const [questaoAtual, setQuestaoAtual] = useState(null)
   const [indiceAtual, setIndiceAtual] = useState(0)
   const [topicos, setTopicos] = useState([])
+  const [dificuldades, setDificuldades] = useState([])
   const [selectedTopico, setSelectedTopico] = useState('')
+  const [selectedDificuldade, setSelectedDificuldade] = useState('')
   const [searchType, setSearchType] = useState('id')
   const [termoBusca, setTermoBusca] = useState('')
   const [alternativaSelecionada, setAlternativaSelecionada] = useState('')
@@ -54,13 +56,14 @@ function Questoes() {
       setIndiceAtual(0)
       setQuestaoAtual(sorted[0] || null)
       setSelectedTopico('')
+      setSelectedDificuldade('')
       setSearchType('id')
       setTermoBusca('')
       setAlternativaSelecionada('')
       setTextoResposta('')
       setResultado(null)
     } catch (error) {
-      setModalMessage('Erro ao carregar as questões.')
+      alert('Erro ao carregar as questões.')
     }
   }
 
@@ -74,12 +77,22 @@ function Questoes() {
     }
   }
 
+  async function carregarDificuldades() {
+    try {
+      const response = await fetch('/busca/dificuldades-lista')
+      const data = await response.json()
+      setDificuldades(data)
+    } catch (error) {
+      setDificuldades([])
+    }
+  }
+
   async function buscarPorTopico(topicoId) {
     try {
       const response = await fetch(`/busca/topicos/${topicoId}`)
       const data = await response.json()
       if (!Array.isArray(data) || data.length === 0) {
-        setModalMessage('Nenhuma questão encontrada para este tópico.')
+        alert('Nenhuma questão encontrada para este tópico.')
         return
       }
       const sorted = [...data].sort((a, b) => Number(a.id_q) - Number(b.id_q))
@@ -89,12 +102,32 @@ function Questoes() {
       setAlternativaSelecionada('')
       setResultado(null)
     } catch (error) {
-      setModalMessage('Erro ao buscar por tópico.')
+      alert('Erro ao buscar por tópico.')
+    }
+  }
+
+  async function buscarPorDificuldade(dificuldadeId) {
+    try {
+      const response = await fetch(`/busca/dificuldades/${dificuldadeId}`)
+      const data = await response.json()
+      if (!Array.isArray(data) || data.length === 0) {
+        alert('Nenhuma questão encontrada para esta dificuldade.')
+        return
+      }
+      const sorted = [...data].sort((a, b) => Number(a.id_q) - Number(b.id_q))
+      setQuestoes(sorted)
+      setQuestaoAtual(sorted[0])
+      setIndiceAtual(0)
+      setAlternativaSelecionada('')
+      setResultado(null)
+    } catch (error) {
+      alert('Erro ao buscar por dificuldade.')
     }
   }
 
   useEffect(() => {
     carregarTopicos()
+    carregarDificuldades()
     carregarQuestoes()
   }, [])
 
@@ -109,13 +142,18 @@ function Questoes() {
   async function buscarQuestao() {
     const termo = termoBusca.trim()
 
-    if (!termo && !selectedTopico) {
-      setModalMessage('Digite o termo de busca ou selecione um tópico.')
+    if (!termo && !selectedTopico && !selectedDificuldade) {
+      alert('Digite o termo de busca ou selecione um filtro.')
       return
     }
 
     if (selectedTopico) {
       await buscarPorTopico(selectedTopico)
+      return
+    }
+
+    if (selectedDificuldade) {
+      await buscarPorDificuldade(selectedDificuldade)
       return
     }
 
@@ -127,19 +165,19 @@ function Questoes() {
         selecionarQuestao(questoes[index], index)
         return
       }
-      setModalMessage('Nenhuma questão encontrada para este ID.')
+      alert('Nenhuma questão encontrada para este ID.')
       return
     }
 
     if (searchType === 'ano') {
       const response = await fetch(`/busca/ano/${encodeURIComponent(termo)}`)
       if (!response.ok) {
-        setModalMessage('Nenhuma questão encontrada para este ano.')
+        alert('Nenhuma questão encontrada para este ano.')
         return
       }
       const data = await response.json()
       if (!Array.isArray(data) || data.length === 0) {
-        setModalMessage('Nenhuma questão encontrada para este ano.')
+        alert('Nenhuma questão encontrada para este ano.')
         return
       }
       const sorted = [...data].sort((a, b) => Number(a.id_q) - Number(b.id_q))
@@ -154,12 +192,12 @@ function Questoes() {
     if (searchType === 'vestibular') {
       const response = await fetch(`/busca/vestibular/${encodeURIComponent(termo)}`)
       if (!response.ok) {
-        setModalMessage('Nenhuma questão encontrada para este vestibular.')
+        alert('Nenhuma questão encontrada para este vestibular.')
         return
       }
       const data = await response.json()
       if (!Array.isArray(data) || data.length === 0) {
-        setModalMessage('Nenhuma questão encontrada para este vestibular.')
+        alert('Nenhuma questão encontrada para este vestibular.')
         return
       }
       const sorted = [...data].sort((a, b) => Number(a.id_q) - Number(b.id_q))
@@ -182,7 +220,7 @@ function Questoes() {
       return
     }
 
-    setModalMessage('Nenhuma questão encontrada.')
+    alert('Nenhuma questão encontrada.')
   }
 
   function proximaQuestao() {
@@ -197,12 +235,12 @@ function Questoes() {
 
     if (alternativas.length > 0) {
       if (!alternativaSelecionada) {
-        setModalMessage('Por favor, selecione uma alternativa.')
+        alert('Por favor, selecione uma alternativa.')
         return
       }
     } else {
       if (!textoResposta.trim()) {
-        setModalMessage('Escreva sua resposta antes de enviar.')
+        alert('Escreva sua resposta antes de enviar.')
         return
       }
     }
@@ -217,7 +255,7 @@ function Questoes() {
           // ignore invalid JSON
         }
         const message = errorData.mensagem || 'Erro ao buscar a resposta correta.'
-        setModalMessage(message)
+        alert(message)
         return
       }
 
@@ -250,7 +288,7 @@ function Questoes() {
         tipo: resultadoTipo,
       })
     } catch (error) {
-      setModalMessage(error.message || 'Erro ao buscar a resposta correta.')
+      alert(error.message || 'Erro ao buscar a resposta correta.')
     }
   }
 
@@ -277,7 +315,10 @@ function Questoes() {
               <select
                 aria-label="Tópicos"
                 value={selectedTopico}
-                onChange={(event) => setSelectedTopico(event.target.value)}
+                onChange={(event) => {
+                  setSelectedTopico(event.target.value)
+                  if (event.target.value) setSelectedDificuldade('')
+                }}
               >
                 <option value="">Todos os tópicos</option>
                 {topicos.map((topico) => (
@@ -287,11 +328,27 @@ function Questoes() {
                 ))}
               </select>
 
+              <select
+                aria-label="Dificuldade"
+                value={selectedDificuldade}
+                onChange={(event) => {
+                  setSelectedDificuldade(event.target.value)
+                  if (event.target.value) setSelectedTopico('')
+                }}
+              >
+                <option value="">Todas as dificuldades</option>
+                {dificuldades.map((dificuldade) => (
+                  <option key={dificuldade.id_d} value={dificuldade.id_d}>
+                    {dificuldade.nome_d} ({dificuldade.total})
+                  </option>
+                ))}
+              </select>
+
               <input
                 type="text"
                 placeholder={
-                  selectedTopico
-                    ? 'Buscar dentro do tópico selecionado'
+                  selectedTopico || selectedDificuldade
+                    ? 'Buscar dentro do filtro selecionado'
                     : searchType === 'ano'
                     ? 'Digite o ano (ex: 2021)'
                     : searchType === 'vestibular'
@@ -315,6 +372,14 @@ function Questoes() {
               {questaoAtual ? `Questão ${questaoAtual.id_q}` : 'Carregando questão...'}
               {questaoAtual?.nome_q && <span> ({questaoAtual.nome_q})</span>}
             </h2>
+
+            <div className="question-meta">
+              {questaoAtual?.dificuldade && (
+                <span className="difficulty-label">
+                  Dificuldade: {questaoAtual.dificuldade}
+                </span>
+              )}
+            </div>
 
             <div className="question-text">
               {questaoAtual ? (
@@ -417,7 +482,7 @@ function Questoes() {
         <div className="modal-message">
           <div className="modal-content">
             <p>{modalMessage}</p>
-            <button className="btn btn-primary" type="button" onClick={() => setModalMessage('')}>
+            <button className="btn btn-primary" type="button" onClick={() => alert('')}>
               Fechar
             </button>
           </div>
