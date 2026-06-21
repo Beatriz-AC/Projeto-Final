@@ -1,4 +1,4 @@
-const pool = require('../Config/database');
+const pool = require('../Config/database');   // Conexão com o banco de dados PostgreSQL
 
 // ========================================
 // LISTAR TODAS AS QUESTÕES
@@ -27,7 +27,7 @@ async function buscarPorId(id) {
 }
 
 // ========================================
-// BUSCAR POR PALAVRA
+// BUSCAR POR PALAVRA-CHAVE
 // ========================================
 async function buscarPorPalavra(palavra) {
   const result = await pool.query(`
@@ -37,7 +37,7 @@ async function buscarPorPalavra(palavra) {
       titulo ILIKE $1 OR
       enunciado ILIKE $1 OR
       palavra_chave ILIKE $1
-  `, [`%${palavra}%`]);
+  `, [`%${palavra}%`]);   // ILIKE = busca sem diferenciar maiúsculas/minúsculas
 
   return result.rows;
 }
@@ -83,7 +83,7 @@ async function buscarPorDificuldade(dificuldade) {
 }
 
 // ========================================
-// LISTAR TÓPICOS
+// LISTAR TÓPICOS (PARA FILTRO NO FRONTEND)
 // ========================================
 async function listarTopicos() {
   const result = await pool.query(`
@@ -99,7 +99,7 @@ async function listarTopicos() {
 }
 
 // ========================================
-// BUSCAR POR TÓPICO
+// BUSCAR QUESTÕES POR TÓPICO
 // ========================================
 async function buscarPorTopico(topico) {
   const result = await pool.query(`
@@ -113,7 +113,7 @@ async function buscarPorTopico(topico) {
 }
 
 // ========================================
-// BUSCAR RESPOSTA DA QUESTÃO
+// BUSCAR RESPOSTA / GABARITO DA QUESTÃO
 // ========================================
 async function buscarResposta(idQuestao) {
   const result = await pool.query(`
@@ -125,6 +125,7 @@ async function buscarResposta(idQuestao) {
   return result.rows[0];
 }
 
+// ====================== EXPORTAÇÃO ======================
 module.exports = {
   listarTodos,
   buscarPorId,

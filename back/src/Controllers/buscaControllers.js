@@ -1,5 +1,7 @@
 const BuscaModel = require('../Models/buscaModels');
 
+// ====================== FUNÇÃO AUXILIAR ======================
+// Normaliza os nomes dos campos vindos do banco para o que o frontend espera
 function mapRow(row) {
   if (!row) return row
 
@@ -20,7 +22,9 @@ function mapRow(row) {
   return mapped
 }
 
-// Listar todas
+// ====================== CONTROLADORES (CONTROLLERS) ======================
+
+// Listar todas as questões
 async function listarTodos(req, res) {
   try {
     const dados = await BuscaModel.listarTodos();
@@ -33,10 +37,10 @@ async function listarTodos(req, res) {
   }
 }
 
-// Buscar por ID
+// Buscar questão por ID
 async function buscarPorId(req, res) {
   try {
-    const { id } = req.params;
+    const { id } = req.params;   // Pega o ID da URL (/busca/:id)
 
     const dados = await BuscaModel.buscarPorId(id);
 
@@ -54,13 +58,12 @@ async function buscarPorId(req, res) {
   }
 }
 
-// Buscar por palavra
+// Buscar por palavra-chave
 async function buscarPorPalavra(req, res) {
   try {
     const { palavra } = req.params;
 
-    const dados =
-      await BuscaModel.buscarPorPalavra(palavra);
+    const dados = await BuscaModel.buscarPorPalavra(palavra);
 
     res.status(200).json(Array.isArray(dados) ? dados.map(mapRow) : dados);
   } catch (erro) {
@@ -70,15 +73,12 @@ async function buscarPorPalavra(req, res) {
   }
 }
 
-// Buscar vestibular
+// Buscar questões por vestibular
 async function buscarPorVestibular(req, res) {
   try {
     const { vestibular } = req.params;
 
-    const dados =
-      await BuscaModel.buscarPorVestibular(
-        vestibular
-      );
+    const dados = await BuscaModel.buscarPorVestibular(vestibular);
 
     res.status(200).json(Array.isArray(dados) ? dados.map(mapRow) : dados);
   } catch (erro) {
@@ -88,13 +88,12 @@ async function buscarPorVestibular(req, res) {
   }
 }
 
-// Buscar ano
+// Buscar questões por ano
 async function buscarPorAno(req, res) {
   try {
     const { ano } = req.params;
 
-    const dados =
-      await BuscaModel.buscarPorAno(ano);
+    const dados = await BuscaModel.buscarPorAno(ano);
 
     res.status(200).json(Array.isArray(dados) ? dados.map(mapRow) : dados);
   } catch (erro) {
@@ -104,15 +103,12 @@ async function buscarPorAno(req, res) {
   }
 }
 
-// Buscar dificuldade
+// Buscar questões por dificuldade
 async function buscarPorDificuldade(req, res) {
   try {
     const { dificuldade } = req.params;
 
-    const dados =
-      await BuscaModel.buscarPorDificuldade(
-        dificuldade
-      );
+    const dados = await BuscaModel.buscarPorDificuldade(dificuldade);
 
     res.status(200).json(Array.isArray(dados) ? dados.map(mapRow) : dados);
   } catch (erro) {
@@ -122,7 +118,7 @@ async function buscarPorDificuldade(req, res) {
   }
 }
 
-// Listar tópicos
+// Listar todos os tópicos (para o filtro)
 async function listarTopicos(req, res) {
   try {
     const dados = await BuscaModel.listarTopicos();
@@ -134,7 +130,7 @@ async function listarTopicos(req, res) {
   }
 }
 
-// Buscar por tópico
+// Buscar questões por tópico
 async function buscarPorTopico(req, res) {
   try {
     const { topico } = req.params;
@@ -155,13 +151,12 @@ async function buscarPorTopico(req, res) {
   }
 }
 
-// Buscar resposta
+// Buscar resposta/gabarito de uma questão específica
 async function buscarResposta(req, res) {
   try {
     const { id } = req.params;
 
-    const dados =
-      await BuscaModel.buscarResposta(id);
+    const dados = await BuscaModel.buscarResposta(id);
 
     res.status(200).json(mapRow(dados));
   } catch (erro) {
@@ -171,6 +166,8 @@ async function buscarResposta(req, res) {
   }
 }
 
+// ====================== EXPORTAÇÃO ======================
+// Exporta todas as funções para serem usadas nas rotas
 module.exports = {
   listarTodos,
   buscarPorId,
