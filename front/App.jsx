@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Navbar from './components/Navbar.jsx'
-import Home from './pages/Home.jsx'
+import Home from './pages/index.jsx'
 import Login from './pages/Login.jsx'
 import Plano from './pages/Plano.jsx'
 import Questoes from './pages/Questoes.jsx'

@@ -1,100 +1,114 @@
+/* ====================== ESTILOS GERAIS DA PÁGINA ====================== */
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f9;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte principal do site */
+    background-color: #f4f6f9; /* Cor de fundo clara da página */
     margin: 0;
     padding: 0;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 1200px;           /* Largura máxima do conteúdo central */
+    margin: 0 auto;              /* Centraliza o container */
+    padding: 20px;               /* Espaçamento interno */
 }
 
+/* ====================== ÁREA DA QUESTÃO ====================== */
+
 .form-section {
-    background: white;
-    border-radius: 10px;
-    padding: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    margin-bottom: 25px;
+    background: white;                    /* Fundo branco */
+    border-radius: 10px;                  /* Cantos arredondados */
+    padding: 25px;                        /* Espaçamento interno */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* Sombra suave */
+    margin-bottom: 25px;                  /* Espaço abaixo da seção */
 }
 
 .question-text {
-    background: #f8fafc;
-    padding: 22px;
-    border-radius: 8px;
-    border-left: 5px solid #3b82f6;
-    margin: 20px 0;
-    line-height: 1.7;
-    font-size: 1.05rem;
-    color: #1f2937;
+    background: #f8fafc;                  /* Fundo levemente cinza */
+    padding: 22px;                        /* Espaçamento interno */
+    border-radius: 8px;                   /* Cantos arredondados */
+    border-left: 5px solid #3b82f6;       /* Borda azul à esquerda (destaque) */
+    margin: 20px 0;                       /* Espaçamento acima e abaixo */
+    line-height: 1.7;                     /* Espaçamento entre linhas */
+    font-size: 1.05rem;                   /* Tamanho do texto */
+    color: #1f2937;                       /* Cor do texto */
 }
 
 .question-text p {
-    margin-bottom: 15px;
+    margin-bottom: 15px;                  /* Espaço entre parágrafos do enunciado */
 }
 
+/* ====================== ESTILOS DAS ALTERNATIVAS ====================== */
 
 .options-list {
-    display: flex;
+    display: flex;                        /* Organiza os botões em coluna */
     flex-direction: column;
-    gap: 12px;
+    gap: 12px;                            /* Espaço entre as alternativas */
     margin: 25px 0;
 }
 
+/* Estilo base das alternativas */
 .btn.option-btn {
-    width: 100%;
+    width: 100%;                          /* Ocupa toda a largura */
     background: #ffffff;
     color: #1f2937;
-    border: 2px solid #cbd5e1;
-    text-align: left;
+    border: 2px solid #cbd5e1;            /* Borda cinza clara */
+    text-align: left;                     /* Texto alinhado à esquerda */
     margin-bottom: 10px;
 }
 
+/* Hover nas alternativas */
 .btn.option-btn:hover {
-    background: #eff6ff;
-    border-color: #3b82f6;
+    background: #eff6ff;                  /* Azul bem claro */
+    border-color: #3b82f6;                /* Azul mais forte */
 }
 
+/* Estado quando o aluno seleciona uma alternativa */
 .btn.option-btn.selected {
-    background: #2563eb;
+    background: #2563eb;                  /* Azul escuro */
     border-color: #1d4ed8;
     color: #ffffff;
 }
 
+/* Estado da alternativa CORRETA */
 .btn.option-btn.correct {
-    background: #16a34a;
+    background: #16a34a;                  /* Verde */
     border-color: #15803d;
     color: #ffffff;
 }
 
+/* Estado da alternativa INCORRETA */
 .btn.option-btn.incorrect {
-    background: #dc2626;
+    background: #dc2626;                  /* Vermelho */
     border-color: #b91c1c;
     color: #ffffff;
 }
 
+/* Quando as alternativas estão desabilitadas (após responder) */
 .btn.option-btn:disabled {
     cursor: default;
-    opacity: 1;
+    opacity: 1;                           /* Mantém visibilidade total */
 }
 
-/* Botões */
+/* ====================== BOTÕES GERAIS ====================== */
+
 .form-buttons {
-    display: flex;
-    gap: 12px;
+    display: flex;                        /* Botões lado a lado */
+    gap: 12px;                            /* Espaço entre os botões */
     margin-top: 20px;
 }
 
+/* Estilo base de todos os botões */
 .btn {
     padding: 12px 24px;
     border: none;
     border-radius: 6px;
-    font-weight: 600;
+    font-weight: 600;                     /* Texto em negrito */
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s;                 /* Animação suave */
 }
 
+/* Botão primário (Confirmar resposta) */
 .btn-primary {
     background-color: #3b82f6;
     color: white;
@@ -104,6 +118,7 @@ body {
     background-color: #2563eb;
 }
 
+/* Botão secundário (Próxima questão) */
 .btn-secondary {
     background-color: #64748b;
     color: white;
@@ -113,6 +128,7 @@ body {
     background-color: #475569;
 }
 
+/* Botão de sucesso (Recarregar lista) */
 .btn-success {
     background-color: #10b981;
     color: white;
@@ -122,6 +138,7 @@ body {
     background-color: #059669;
 }
 
+/* ====================== ÁREA DO COMENTÁRIO ====================== */
 
 .list-section {
     background: white;
@@ -131,8 +148,8 @@ body {
 }
 
 .comment-box {
-    background: #1f2937;
-    color: #e5e7eb;
+    background: #1f2937;                  /* Fundo escuro */
+    color: #e5e7eb;                       /* Texto claro */
     padding: 22px;
     border-radius: 8px;
     line-height: 1.65;
@@ -140,13 +157,14 @@ body {
 }
 
 .comment-box strong {
-    color: #60a5fa;
+    color: #60a5fa;                       /* Cor azul clara para os títulos */
 }
 
+/* ====================== ÁREA DE CONTROLES E BUSCA ====================== */
 
 .list-controls {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap;                      /* Quebra linha em telas menores */
     gap: 12px;
     align-items: center;
     background: white;
@@ -159,7 +177,7 @@ body {
     display: flex;
     gap: 8px;
     align-items: center;
-    flex: 1;
+    flex: 1;                              /* Ocupa o espaço restante */
     flex-wrap: wrap;
 }
 
@@ -172,10 +190,11 @@ body {
 }
 
 .search-box input {
-    flex: 1;
+    flex: 1;                              /* Input cresce */
     min-width: 220px;
 }
 
+/* ====================== DROPDOWN (não usado no momento) ====================== */
 
 .dropdown-buscar {
     position: relative;
@@ -210,6 +229,7 @@ body {
     color: #1e40af;
 }
 
+/* ====================== MODAL (não usado no momento) ====================== */
 
 .modal-message {
     display: none;
@@ -233,14 +253,15 @@ body {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
+/* ====================== RESPONSIVIDADE ====================== */
 
 @media (max-width: 768px) {
     .search-box {
-        flex-direction: column;
+        flex-direction: column;           /* Empilha os campos em mobile */
         align-items: stretch;
     }
     
     .form-buttons {
-        flex-direction: column;
+        flex-direction: column;           /* Botões um embaixo do outro */
     }
 }
